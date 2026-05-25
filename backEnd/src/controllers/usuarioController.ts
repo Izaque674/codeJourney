@@ -12,7 +12,7 @@ res.status(201).json(usuarioSemSenha)
     
 
     }catch(error){      
-        console.error('Erro ao criar entregador:', error);
+        console.error('Erro ao criar usuario:', error);
         res.status(500).json({erro:'erro interno'});
 
     }
