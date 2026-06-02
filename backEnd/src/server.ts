@@ -3,6 +3,8 @@ import { prisma } from "./prisma"
 import usuarioRoutes from "./routes/usuarioRoutes"
 import authRoutes from "./routes/authRoutes"
 import desafioRoutes from "./routes/desafioRoutes"
+import tentativaRoutes from "./routes/tentativaRoutes"
+
 
 
 const app = express();
@@ -11,6 +13,7 @@ app.use(express.json())
 app.use('/usuarios', usuarioRoutes)
 app.use('/auth',authRoutes)
 app.use('/desafio', desafioRoutes)
+app.use('/tentativa',tentativaRoutes )
 
 
 const port = 3000;
