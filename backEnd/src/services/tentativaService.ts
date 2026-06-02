@@ -26,12 +26,12 @@ export const  submeterCodigo =async(usuarioId: number, desafioId:number , codigo
     )
 
     return { acertou, tentativa }
-
-
     
+}
+export const listarTentativas = async (usuarioId : number)=>{
+    const historico = await prisma.tentativa.findMany({
+        where: {usuarioId : usuarioId}
+    })
 
-
-
-    
-    
+return historico
 }

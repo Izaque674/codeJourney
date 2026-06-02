@@ -11,10 +11,12 @@ const { senha: _, ...usuarioSemSenha } = usuario
 res.status(201).json(usuarioSemSenha)   
     
 
-    }catch(error){      
-        console.error('Erro ao criar usuario:', error);
-        res.status(500).json({erro:'erro interno'});
-
-    }
+    }catch(error: any){
+  if(error.code === 'P2002'){
+    return res.status(409).json({ erro: 'Email já cadastrado' })
+  }
+  console.error('Erro ao criar usuario:', error);
+  res.status(500).json({ erro: 'erro interno' });
+}
  
 }

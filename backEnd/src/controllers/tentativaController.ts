@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { submeterCodigo} from '../services/tentativaService';
+import { listarTentativas, submeterCodigo} from '../services/tentativaService';
 
 export const  tentar = async (req: Request, res:Response)=>{
      const  usuarioId = req.usuarioId;
@@ -18,8 +18,22 @@ export const  tentar = async (req: Request, res:Response)=>{
 
     }
 
+}
 
+export const listar = async (req:Request, res:Response) =>{
+    const  usuarioId = req.usuarioId;
+    if(!usuarioId ){
+     return res.status(400).json({erro: 'historico nao disponivel'})
+    }
 
+    try {
+        const historico = await listarTentativas(usuarioId)
+        res.status(200).json(historico);
+    } catch (error) {
+        console.error('Erro ao buscar tentartivas:', error);
+        res.status(500).json({erro:'erro interno'});
+
+    }
 
 
 }

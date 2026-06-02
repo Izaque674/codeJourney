@@ -18,6 +18,17 @@ export const listarDesafios =  async (usuarioId: number) =>{
     return desafios
 }
 
+export const buscarDesafio = async (id : number) =>{
+    const desafio = await prisma.desafio.findUnique ({
+        where :{id : id}
+
+    })
+        if (!desafio) {
+        throw new Error('Desafio não encontrado')
+    }
+    return desafio
+}
+
 
 
 
