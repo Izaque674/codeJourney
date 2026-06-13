@@ -4,28 +4,31 @@ import vm from 'vm'
 export const  submeterCodigo =async(usuarioId: number, desafioId:number , codigoEnviado: string)=>
     {
         const desafio = await prisma.desafio.findUnique({
-        where :{id : desafioId}
+        where :{id : desafioId},
+        include :{casoteste: true}
 
     });
     if (!desafio) {
         throw new Error('Desafio não encontrado')
     }
-    const resultado = vm.runInNewContext(codigoEnviado,{},{timeout:3000})
-    const outputGerado = String(resultado);
 
-    const acertou = outputGerado === desafio.outputEsperado
+    const resultados = desafio.casoteste.map(caso => {
+    const codigoCompleto = `${codigoEnviado}\n${caso.input}`
+    const saida = vm.runInNewContext(codigoCompleto, {}, { timeout: 3000 })
+  return String(saida) === caso.esperado
+})
 
-    const tentativa = await prisma.tentativa.create({
-        data:{
-            usuarioId: usuarioId,
-            desafioId: desafioId,
-           quantidadeErros: acertou ? 0 : 1
-        }
-    }
+const acertou = resultados.every(r => r === true)
 
-    )
+const tentativa = await prisma.tentativa.create({
+  data: {
+    usuarioId: usuarioId,
+    desafioId: desafioId,
+    quantidadeErros: acertou ? 0 : 1
+  }
+})
 
-    return { acertou, tentativa }
+return { acertou, tentativa }
     
 }
 export const listarTentativas = async (usuarioId : number)=>{
