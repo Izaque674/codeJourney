@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import Cadastro from './pages/Cadastro'
 import Dashboard from './pages/Dashboard'
 import Desafio from './pages/Desafio'
+import RotaProtegida from './components/RotaProtegida'
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/desafio/:id" element={<Desafio />} />
+        <Route path="/dashboard" element={<RotaProtegida><Dashboard /></RotaProtegida>} />
+        <Route path="/desafio/:id" element={<RotaProtegida><Desafio /></RotaProtegida>} />
       </Routes>
     </BrowserRouter>
   )

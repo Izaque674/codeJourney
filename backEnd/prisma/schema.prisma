@@ -30,6 +30,7 @@ model Desafio {
   descricao       String
   dificuldade     String
   outputEsperado  String
+  exemplo         String@default("")
   tentativas      Tentativa[]
   casoteste       CasoTeste[]
 }

@@ -46,17 +46,54 @@ export default function Desafio() {
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Lado esquerdo — descrição */}
-        <div className="w-2/5 p-6 border-r border-slate-700 overflow-y-auto">
-          <h1 className="text-xl font-bold text-white mb-3">{desafio?.titulo}</h1>
-          <p className="text-slate-400 text-sm leading-relaxed">{desafio?.descricao}</p>
+{/* Lado esquerdo — descrição */}
+<div className="w-2/5 p-6 border-r border-slate-700 overflow-y-auto flex flex-col gap-4">
+  
+  {/* Badge dificuldade */}
+  <span className={`self-start text-xs px-3 py-1 rounded-full font-medium capitalize ${
+    desafio?.dificuldade === 'iniciante' ? 'bg-green-500/20 text-green-400' :
+    desafio?.dificuldade === 'intermediario' ? 'bg-yellow-500/20 text-yellow-400' :
+    'bg-red-500/20 text-red-400'
+  }`}>
+    {desafio?.dificuldade}
+  </span>
 
-          {resultado && (
-            <div className={`mt-6 p-4 rounded-xl text-sm font-medium ${resultado.acertou ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
-              {resultado.acertou ? '✅ Resposta correta!' : '❌ Incorreto, tente novamente.'}
-            </div>
-          )}
-        </div>
+  {/* Título e descrição */}
+  <div>
+    <h1 className="text-xl font-bold text-white mb-2">{desafio?.titulo}</h1>
+    <p className="text-slate-400 text-sm leading-relaxed">{desafio?.descricao}</p>
+  </div>
+
+  {/* Separador */}
+  <div className="border-t border-slate-700" />
+
+  {/* Exemplo */}
+<div>
+  <p className="text-slate-400 text-xs font-medium uppercase tracking-wider mb-2">Exemplos</p>
+  <div className="bg-slate-900 rounded-xl p-4 font-mono text-sm text-slate-300 whitespace-pre-line">
+    {desafio?.exemplo}
+  </div>
+</div>
+
+  {/* Dica */}
+  <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+    <p className="text-blue-400 text-xs font-medium mb-1">💡 Dica</p>
+    <p className="text-slate-400 text-xs leading-relaxed">
+      Escreva a função completa no editor. O sistema vai testar com diferentes valores automaticamente.
+    </p>
+  </div>
+
+  {/* Resultado */}
+  {resultado && (
+    <div className={`p-4 rounded-xl text-sm font-medium ${
+      resultado.acertou 
+        ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+        : 'bg-red-500/20 text-red-400 border border-red-500/30'
+    }`}>
+      {resultado.acertou ? '✅ Resposta correta!' : '❌ Incorreto, tente novamente.'}
+    </div>
+  )}
+</div>
 
         {/* Lado direito — editor */}
         <div className="flex-1 flex flex-col">

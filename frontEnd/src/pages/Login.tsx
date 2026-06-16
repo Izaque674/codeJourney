@@ -97,6 +97,13 @@ export default function Login() {
             )}
           </button>
         </form>
+
+        <p className="text-center text-slate-400 text-sm mt-4">
+  Não tem conta?{' '}
+  <span onClick={() => navigate('/cadastro')} className="text-blue-400 cursor-pointer hover:underline">
+    Criar conta
+  </span>
+</p>
       </div>
     </div>
   );
