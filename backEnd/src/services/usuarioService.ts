@@ -13,8 +13,19 @@ export const cadastrarUsuario = async (nome: string, email:string, senha:string,
         }
     })
 
-    
+     
   return usuario;
 };
+
+export const atualizarNivel = async (novoNivel: string, usuarioId : number) =>{
+
+    const usuario = await prisma.usuario.update({
+        where : {id: usuarioId},
+        data: {nivel: novoNivel}
+
+    })
+
+    return usuario
+}
 
 
