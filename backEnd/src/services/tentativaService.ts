@@ -18,7 +18,7 @@ export const  submeterCodigo =async(usuarioId: number, desafioId:number , codigo
   return String(saida) === caso.esperado
 })
 
-const acertou = resultados.every(r => r === true)
+const acertou = resultados.every((r: boolean) => r === true)
 
 const tentativa = await prisma.tentativa.create({
   data: {

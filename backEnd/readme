@@ -1,0 +1,13 @@
+Simples — dentro da pasta backEnd roda:
+
+docker compose up
+
+Sem o --build dessa vez — só usa quando mudar o código. O --build reconstrói a imagem do zero e demora mais.
+
+Se quiser rodar em background sem travar o terminal:
+
+docker compose up -d
+
+O -d é "detached" — roda em segundo plano. Pra parar:
+
+docker compose down
