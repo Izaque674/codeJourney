@@ -1,5 +1,6 @@
 import { prisma } from "../prisma"
-import vm from 'vm'
+
+import { executarCodigo } from './executorService'
 
 export const  submeterCodigo =async(usuarioId: number, desafioId:number , codigoEnviado: string)=>
     {
@@ -12,13 +13,35 @@ export const  submeterCodigo =async(usuarioId: number, desafioId:number , codigo
         throw new Error('Desafio não encontrado')
     }
 
-    const resultados = desafio.casoteste.map(caso => {
-    const codigoCompleto = `${codigoEnviado}\n${caso.input}`
-    const saida = vm.runInNewContext(codigoCompleto, {}, { timeout: 3000 })
-  return String(saida) === caso.esperado
-})
 
-const acertou = resultados.every((r: boolean) => r === true)
+    
+const resultados = [];
+
+for (const caso of desafio.casoteste) {
+  
+  const codigoCompleto = `${codigoEnviado}\n${caso.input}`;
+
+  
+  const stdout = await executarCodigo(codigoCompleto);
+
+  
+  const saidaObtida = stdout.trim();
+  const saidaEsperada = caso.esperado.trim();
+
+  
+  const passou = saidaObtida === saidaEsperada;
+
+  resultados.push({
+    casoTesteId: caso.id,
+    passou,
+    saidaObtida,
+    saidaEsperada,
+  });
+
+}
+
+
+const acertou = resultados.every(r => r.passou === true)
 
 const tentativa = await prisma.tentativa.create({
   data: {
