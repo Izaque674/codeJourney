@@ -1,6 +1,12 @@
 import { prisma } from '../src/prisma'
 
 async function main() {
+   const total = await prisma.desafio.count()
+  
+  if (total > 0) {
+    console.log('Banco já populado, pulando seed.')
+    return
+  }
   await prisma.tentativa.deleteMany()
   await prisma.casoTeste.deleteMany()
   await prisma.desafio.deleteMany()

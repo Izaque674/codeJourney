@@ -19,10 +19,11 @@ const resultados = [];
 
 for (const caso of desafio.casoteste) {
   
-  const codigoCompleto = `${codigoEnviado}\n${caso.input}`;
+  const codigoCompleto = `${codigoEnviado}\nconsole.log(${caso.input})`
 
   
   const stdout = await executarCodigo(codigoCompleto);
+  
 
   
   const saidaObtida = stdout.trim();
