@@ -1,4 +1,4 @@
-CodeJourney 
+CodeJourney!
 
 Plataforma de desafios de programação com execução de código em ambiente isolado. Inspirada no LeetCode, permite que usuários resolvam desafios de JavaScript e tenham seu código avaliado automaticamente por casos de teste reais.
 
