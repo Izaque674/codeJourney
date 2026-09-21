@@ -84,15 +84,32 @@ export default function Desafio() {
   </div>
 
   {/* Resultado */}
-  {resultado && (
-    <div className={`p-4 rounded-xl text-sm font-medium ${
+{resultado && (
+  <div className="mt-6 flex flex-col gap-2">
+    <p className="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">
+      Resultados
+    </p>
+    {resultado.resultados?.map((r: any, i: number) => (
+      <div key={i} className={`p-3 rounded-xl text-xs font-mono border ${
+        r.passou 
+          ? 'bg-green-500/10 border-green-500/30 text-green-400' 
+          : 'bg-red-500/10 border-red-500/30 text-red-400'
+      }`}>
+<span>{r.passou ? '✅' : '❌'}</span>
+<span className="ml-2 text-slate-300">{r.input}</span>
+<span className="ml-2">→ esperado: {r.saidaEsperada}</span>
+<span className="ml-2">obtido: {r.saidaObtida || 'nenhum output'}</span>
+      </div>
+    ))}
+    <div className={`p-3 rounded-xl text-sm font-medium text-center ${
       resultado.acertou 
         ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
         : 'bg-red-500/20 text-red-400 border border-red-500/30'
     }`}>
-      {resultado.acertou ? '✅ Resposta correta!' : '❌ Incorreto, tente novamente.'}
+      {resultado.acertou ? '✅ Todos os casos passaram!' : '❌ Alguns casos falharam.'}
     </div>
-  )}
+  </div>
+)}
 </div>
 
         {/* Lado direito — editor */}

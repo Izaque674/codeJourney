@@ -34,6 +34,7 @@ for (const caso of desafio.casoteste) {
 
   resultados.push({
     casoTesteId: caso.id,
+    input: caso.input,
     passou,
     saidaObtida,
     saidaEsperada,
@@ -52,7 +53,7 @@ const tentativa = await prisma.tentativa.create({
   }
 })
 
-return { acertou, tentativa }
+return { acertou, tentativa, resultados }
     
 }
 export const listarTentativas = async (usuarioId : number)=>{
